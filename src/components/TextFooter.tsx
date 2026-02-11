@@ -13,7 +13,7 @@ export default function TextFooter() {
       <h1
         className={`absolute left-10 bottom-5 transform -translate-y-1/2 text-white text-4xl lg:text-5xl font-bold leading-tight ${playfairDisplay.className}`}
       >
-        <span className="text-gray-400">Match</span> <br /> the photo pairs
+        <span className="text-pink-500">Sinthiya </span><span className="text-gray-400">Match</span> <br /> the photo pairs
       </h1>
 
       {/* Right Text */}
