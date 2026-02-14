@@ -54,8 +54,9 @@ export default function ValentinesProposal() {
   };
 
   const getRandomPosition = () => {
-    const randomTop = Math.random() * 80;
-    const randomLeft = Math.random() * 80;
+    // এখানে মান বাড়িয়ে দেওয়া হয়েছে যাতে বাটন পুরো স্ক্রিনে ঘুরতে পারে
+    const randomTop = Math.random() * 90; 
+    const randomLeft = Math.random() * 90;
     return { top: `${randomTop}%`, left: `${randomLeft}%` };
   };
 
@@ -74,57 +75,30 @@ export default function ValentinesProposal() {
     setStep(3);
   };
 
-  const handleNoHoverOrClick = () => {
-    notifyTelegram("পালাতে চাচ্ছে! 😢 (No বাটনে মাউস নিয়েছে বা ক্লিক করেছে)");
+  const handleNoInteraction = () => {
+    notifyTelegram("পালাতে চাচ্ছে! 😢 (No বাটনে মাউস নিয়েছে)");
     setPosition(getRandomPosition());
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-full relative overflow-hidden bg-black text-white">
+    <div className="flex flex-col items-center justify-center min-h-screen w-full relative overflow-hidden bg-black text-white">
       <AnimatePresence mode="wait">
         {step === 0 && (
-          <motion.h2
-            key="step-0"
-            className={`text-4xl font-semibold mb-4 text-center px-4 ${playfairDisplay.className}`}
-            transition={{ duration: 1 }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
+          <motion.h2 key="step-0" className={`text-4xl font-semibold mb-4 text-center px-4 ${playfairDisplay.className}`} transition={{ duration: 1 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             Congratulations! You have completed the game.
           </motion.h2>
         )}
         {step === 1 && (
-          <motion.h2
-            key="step-1"
-            className={`text-4xl font-semibold mb-4 text-center px-4 ${playfairDisplay.className}`}
-            transition={{ duration: 3 }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
+          <motion.h2 key="step-1" className={`text-4xl font-semibold mb-4 text-center px-4 ${playfairDisplay.className}`} transition={{ duration: 3 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             I have a surprise for you!
           </motion.h2>
         )}
         {step === 2 && (
-          <motion.div
-            key="step-2"
-            transition={{ duration: 3 }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="flex flex-col items-center z-10 w-full h-full justify-center"
-          >
-            {/* Background Memory Grid */}
+          <motion.div key="step-2" transition={{ duration: 3 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex flex-col items-center z-10 w-full">
             <div className="absolute inset-0 grid grid-cols-6 opacity-10 -z-10 pointer-events-none">
               {images.map((src, index) => (
                 <div key={index} className="relative h-40">
-                  <Image
-                    src={src}
-                    alt={`Memory ${index + 1}`}
-                    fill
-                    className="object-cover"
-                  />
+                  <Image src={src} alt={`Memory ${index + 1}`} fill className="object-cover" />
                 </div>
               ))}
             </div>
@@ -133,27 +107,21 @@ export default function ValentinesProposal() {
               Will you be my Valentine?
             </h2>
             
-            <Image
-              src="/sad_hamster.png"
-              alt="Sad Hamster"
-              width={200}
-              height={200}
-              priority
-            />
+            <Image src="/sad_hamster.png" alt="Sad Hamster" width={200} height={200} priority />
 
-            <div className="flex space-x-4 mt-10 relative">
+            <div className="flex space-x-4 mt-10">
               <button
-                className="px-8 py-3 text-lg font-semibold text-white bg-gradient-to-r from-pink-500 to-rose-500 rounded-xl hover:from-pink-600 hover:to-rose-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="px-8 py-3 text-lg font-semibold text-white bg-gradient-to-r from-pink-500 to-rose-500 rounded-xl z-20"
                 onClick={handleYesClick}
               >
                 Yes, Rifat I will! 🥰
               </button>
               
               <button
-                className="px-8 py-3 text-lg font-semibold text-white bg-gradient-to-r from-gray-500 to-gray-600 rounded-xl hover:from-gray-600 hover:to-gray-700 transform hover:scale-95 transition-all duration-300 shadow-lg"
-                style={position ? { position: "absolute", top: position.top, left: position.left, zIndex: 100 } : {}}
-                onMouseEnter={handleNoHoverOrClick}
-                onClick={handleNoHoverOrClick}
+                className="px-8 py-3 text-lg font-semibold text-white bg-gradient-to-r from-gray-500 to-gray-600 rounded-xl transition-all duration-200"
+                style={position ? { position: "fixed", top: position.top, left: position.left, zIndex: 100 } : { position: "relative" }}
+                onMouseEnter={handleNoInteraction}
+                onClick={handleNoInteraction}
               >
                 No, I won&apos;t 😢
               </button>
@@ -161,36 +129,20 @@ export default function ValentinesProposal() {
           </motion.div>
         )}
         {step === 3 && (
-          <motion.div
-            key="step-3"
-            className={`text-4xl font-semibold mb-4 flex flex-col justify-center items-center text-center px-4 ${playfairDisplay.className}`}
-            transition={{ duration: 1 }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
+          <motion.div key="step-3" className={`text-4xl font-semibold mb-4 flex flex-col justify-center items-center text-center px-4 ${playfairDisplay.className}`} transition={{ duration: 1 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             Thank you for accepting💕
             <p className="text-sm mt-4 text-gray-300">
               Sinthiya, You are my valentines now. <br/>
-              <span className="text-rose-400 font-bold text-lg">Say I LOVE YOU 💌</span>
+              <span className="text-rose-400 font-bold text-lg">Say "I LOVE YOU" 💌</span>
             </p>
-            <Image
-              src="/hamster_jumping.gif"
-              alt="Happy Hamster"
-              width={250}
-              height={250}
-              unoptimized
-            />
+            <Image src="/hamster_jumping.gif" alt="Happy Hamster" width={250} height={250} unoptimized />
           </motion.div>
         )}
       </AnimatePresence>
 
       {showFireworks && (
-        <div className="absolute inset-0 z-50 pointer-events-none">
-          <Fireworks
-            options={{ autoresize: true }}
-            style={{ width: "100%", height: "100%" }}
-          />
+        <div className="fixed inset-0 z-50 pointer-events-none">
+          <Fireworks options={{ autoresize: true }} style={{ width: "100%", height: "100%" }} />
         </div>
       )}
     </div>
